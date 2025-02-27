@@ -30,10 +30,10 @@ eclipseMavenCentral {
 }
 
 dependencies {
-    implementation 'com.android.tools.ddms:ddmlib:30.0.4'
-    implementation 'org.eclipse.platform:org.eclipse.jface:3.24.0'
-    implementation 'com.google.guava:guava:31.0.1-jre'
-    implementation 'com.android.tools:common:27.0.2'
+    implementation 'com.android.tools.ddms:ddmlib:31.8.2'
+    implementation 'org.eclipse.platform:org.eclipse.jface:3.35.100'
+    implementation 'com.google.guava:guava:33.4.0-jre'
+    implementation 'com.android.tools:common:31.8.2'
 }
 
 sourceSets {
