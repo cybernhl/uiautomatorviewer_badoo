@@ -1,54 +1,31 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        kotlin_version = libs.versions.kotlin.version.get()
+    }
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url = uri('https://maven.pkg.jetbrains.space/public/p/compose/dev')
+        }
+    }
+    dependencies {
+
+    }
+}
+
 plugins {
-    id "java"
-    id 'application'
-    id "com.diffplug.eclipse.mavencentral" version "3.33.3"
-    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id "org.jetbrains.kotlin.jvm" version "${kotlin_version}" apply false
 }
 
-group = 'com.android.tools'
-archivesBaseName = 'uiautomatorviewer'
+group = "com.android.tools"
+version = "26.0.0-dev-adv-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-    google()
+allprojects {
+
 }
-
-application {
-    mainClass = 'com.android.uiautomator.UiAutomatorViewer'
-}
-
-eclipseMavenCentral {
-    release '4.21.0', {
-        // supports the standard java configurations
-        implementation 'org.eclipse.swt'
-        // specify this to add the native jars for this platform
-        useNativesForRunningPlatform()
-        // specify that all transitive dependencies should be from this release
-        // (otherwise the version ranges which eclipse uses will use latest available)
-        constrainTransitivesToThisRelease()
-    }
-}
-
-dependencies {
-    implementation 'com.android.tools.ddms:ddmlib:31.8.2'
-    implementation 'org.eclipse.platform:org.eclipse.jface:3.35.100'
-    implementation 'com.google.guava:guava:33.4.0-jre'
-    implementation 'com.android.tools:common:31.8.2'
-}
-
-sourceSets {
-    main.resources.srcDir 'src/main/java'
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
-}
-
-shadowJar {
-    minimize() {
-        exclude dependency('org.eclipse.platform:.*:.*')
-    }
-}
-

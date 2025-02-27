@@ -1,0 +1,48 @@
+plugins {
+    id "java"
+    id 'application'
+    id "com.diffplug.eclipse.mavencentral" version "3.33.3"
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
+}
+
+group = 'com.android.tools'
+archivesBaseName = 'uiautomatorviewer'
+
+sourceSets {
+    main.resources.srcDir 'src/main/java'
+}
+
+application {
+    mainClass = 'com.android.uiautomator.UiAutomatorViewer'
+}
+
+eclipseMavenCentral {
+    release '4.21.0', {
+        // supports the standard java configurations
+        implementation 'org.eclipse.swt'
+        // specify this to add the native jars for this platform
+        useNativesForRunningPlatform()
+        // specify that all transitive dependencies should be from this release
+        // (otherwise the version ranges which eclipse uses will use latest available)
+        constrainTransitivesToThisRelease()
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+shadowJar {
+    minimize() {
+        exclude dependency('org.eclipse.platform:.*:.*')
+    }
+}
+
+dependencies {
+    implementation 'com.android.tools.ddms:ddmlib:31.8.2'
+    implementation 'org.eclipse.platform:org.eclipse.jface:3.35.100'
+    implementation 'com.google.guava:guava:33.4.0-jre'
+    implementation 'com.android.tools:common:31.8.2'
+}
